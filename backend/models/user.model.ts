@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { User } from "../user.type";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema<User>({
-  _id:  { type: String, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 8 },
@@ -14,4 +14,19 @@ const userSchema = new mongoose.Schema<User>({
   verificationTokenExpiredAt: { type: Date }
 }, { timestamps: true });
 
-export const UserModel = mongoose.model("User", userSchema);
+userSchema.pre("save", function (next) {
+  if (this.isModified("password") || this.isNew) {
+    const hash = bcrypt.hashSync(this.password, 10);
+    this.password = hash;
+  }
+
+  if (this.verificationToken && !this.verificationTokenExpiredAt) {
+    this.verificationTokenExpiredAt = new Date();
+    this.verificationTokenExpiredAt.setMinutes(
+      this.verificationTokenExpiredAt.getMinutes() + 10
+    );
+  }
+  next();
+});
+
+export const UserModel = mongoose.model<User>("User", userSchema);
