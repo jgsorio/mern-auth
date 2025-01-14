@@ -1,9 +1,11 @@
 {
   "name": "mern-auth",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx --watch ./backend/server.ts",
+    "build": "tsup ./backend/server.ts --dts --minify --outDir build",
+    "start": "node ./build/server.js"
   },
   "repository": {
     "type": "git",

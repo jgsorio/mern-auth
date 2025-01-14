@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "Node16",
+    "target": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "outDir": "./build",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "rootDirs": ["./backend", "./shared"]
+  },
+  "include": [
+    "./backend/**/*.ts",
+    "./shared/**/*"
+  ],
+  "exclude": ["node_modules", "./frontend"]
+}
