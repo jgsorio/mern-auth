@@ -4,7 +4,8 @@ import { z } from "zod";
 const envSchema = z.object({
   APP_NAME: z.string(),
   PORT: z.string(),
-  NODE_ENV: z.enum(["development", "production"])
+  NODE_ENV: z.enum(["development", "production"]),
+  MONGO_DSN: z.string()
 });
 
 type Env = z.infer<typeof envSchema>
