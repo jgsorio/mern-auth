@@ -1,2 +1,3 @@
+import { ENV } from "./utils/env";
 const hello: string = "Hello World!!!";
-console.log(hello);
+console.log(hello, ENV.PORT);
